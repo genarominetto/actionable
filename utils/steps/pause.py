@@ -1,0 +1,2 @@
+def pause():
+	print("Pause")

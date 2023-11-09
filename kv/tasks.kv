@@ -1,0 +1,95 @@
+<TasksScreen>:
+    ScrollView:
+        canvas.before:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        do_scroll_x: False
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 30
+            spacing: 30
+            Label:
+                text: 'Tasks'
+                color: (1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint_y: None
+                height: 100
+            GridLayout:
+                cols: 2
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.5, 0.5, 0.5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    text: 'Steps'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.go_to_steps()
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    text: 't1'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.t1()
+                Button:
+                    text: 't2'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.t2()
+                Button:
+                    text: 't3'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.t3()
+                Button:
+                    text: 't4'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.t4()
+                Button:
+                    text: 't5'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.t5()
+                Button:
+                    text: 'Change Place'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.change_place()
+                Button:
+                    text: 'Refresh'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.refresh()
+                Button:
+                    text: 'Start'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.start()
