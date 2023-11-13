@@ -78,6 +78,18 @@
                     size_hint_y: None
                     height: 50
                     on_press: root.t5()
+            GridLayout:
+                cols: 3
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
                 Button:
                     text: 'Change Place'
                     size_hint_y: None
