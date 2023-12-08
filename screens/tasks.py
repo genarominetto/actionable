@@ -7,6 +7,7 @@ from utils.tasks.t5 import t5
 from utils.tasks.change_place import change_place
 from utils.tasks.refresh import refresh
 from utils.tasks.start import start
+from utils.tasks.select_zipf_tasks import select_zipf_tasks
 
 class tasksScreen(Screen):
     def go_to_steps(self):
@@ -20,5 +21,12 @@ class tasksScreen(Screen):
     t4 = staticmethod(t4)
     t5 = staticmethod(t5)
     change_place = staticmethod(change_place)
-    refresh = staticmethod(refresh)
+
+    def refresh(self):
+        task_list = select_zipf_tasks()
+        for index, task in enumerate(task_list):
+            button_id = f"t{index + 1}"
+            button = self.ids[button_id]
+            button.text = task['text']
+
     start = staticmethod(start)
