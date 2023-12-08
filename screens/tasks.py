@@ -6,6 +6,8 @@ from utils.tasks.t4 import t4
 from utils.tasks.t5 import t5
 from utils.tasks.change_place import change_place
 from utils.tasks.select_zipf_tasks import select_zipf_tasks
+import sqlite3
+from datetime import datetime
 
 class tasksScreen(Screen):
     def __init__(self, **kwargs):
@@ -49,8 +51,24 @@ class tasksScreen(Screen):
 
         if selected_task_id is not None:
             print(f"Starting task with id {selected_task_id}")
-            # Add your logic here to handle the selected task
+            self.add_to_history(selected_task_id)
         else:
             print("No task selected")
+
+    def add_to_history(self, step_id):
+        action = "Started"
+        time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        conn = sqlite3.connect('tasks.db')
+        cursor = conn.cursor()
+
+        cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME)
+                          VALUES (?, ?, ?)''', (step_id, action, time))
+
+        conn.commit()
+        conn.close()
+
+        print(f"Record added to HISTORY with step_id: {step_id}, action: {action}, time: {time}")
+
 
 
