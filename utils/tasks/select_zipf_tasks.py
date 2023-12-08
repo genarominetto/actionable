@@ -2,7 +2,7 @@
 import sqlite3
 import random
 
-def select_zipf_tasks(cursor):
+def select_zipf_tasks():
     """
     Selects 5 unique tasks for the selected place in the database using Zipf distribution.
     Replaces placeholders in task names and returns a list of dicts with task id and text.
@@ -38,6 +38,10 @@ def select_zipf_tasks(cursor):
             task_name = task_name[:start] + placeholder_value + task_name[end + 1:]
         return task_name
 
+    # Create a database connection and cursor
+    conn = sqlite3.connect('tasks.db')
+    cursor = conn.cursor()
+
     # Select the place marked as selected
     cursor.execute("SELECT * FROM PLACES WHERE IS_SELECTED = 1;")
     selected_place = cursor.fetchone()
@@ -70,17 +74,12 @@ def select_zipf_tasks(cursor):
             task_with_placeholders_replaced = replace_placeholders(selected_task[2], placeholders)
             final_tasks.append({"task id": selected_task[0], "text": task_with_placeholders_replaced})
 
+    conn.close()
+
     return final_tasks
 
-# Example of how to use the function
-# Create a database connection and cursor
-conn = sqlite3.connect('tasks.db')
-cursor = conn.cursor()
+
 
 # Execute the function
-tasks_output = select_zipf_tasks(cursor)
-
-# Closing the database connection
-conn.close()
-
+tasks_output = select_zipf_tasks()
 print(tasks_output)
