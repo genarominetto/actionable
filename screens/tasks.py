@@ -55,20 +55,33 @@ class tasksScreen(Screen):
         else:
             print("No task selected")
 
-    def add_to_history(self, step_id):
+    def add_to_history(self, task_id):
         action = "Started"
         time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         conn = sqlite3.connect('tasks.db')
         cursor = conn.cursor()
 
+        # Find the step_id for the given task_id with ORDER_SEQUENCE = 1
+        cursor.execute('''SELECT ID FROM STEPS WHERE TASK_ID = ? AND ORDER_SEQUENCE = 1''', (task_id,))
+        step_row = cursor.fetchone()
+
+        if step_row is None:
+            print(f"No step found for task_id: {task_id}")
+            conn.close()
+            return
+
+        step_id = step_row[0]
+
+        # Insert into HISTORY table
         cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME)
-                          VALUES (?, ?, ?)''', (step_id, action, time))
+                        VALUES (?, ?, ?)''', (step_id, action, time))
 
         conn.commit()
         conn.close()
 
         print(f"Record added to HISTORY with step_id: {step_id}, action: {action}, time: {time}")
+
 
 
 
