@@ -1,6 +1,7 @@
 # @title Select Five Tasks
 import sqlite3
 import random
+from utils.tasks.get_db_path import get_db_path
 
 def select_zipf_tasks():
     """
@@ -39,8 +40,19 @@ def select_zipf_tasks():
         return task_name
 
     # Create a database connection and cursor
-    conn = sqlite3.connect('tasks.db')
+    # Database file name
+    db_name = 'tasks.db'
+
+    # Get the correct database path
+    db_path = get_db_path(db_name)
+
+    # Create a database connection and cursor
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
+
+
+
+
 
     # Select the place marked as selected
     cursor.execute("SELECT * FROM PLACES WHERE IS_SELECTED = 1;")
