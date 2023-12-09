@@ -19,6 +19,7 @@ class tasksScreen(Screen):
         self.manager.current = 'steps'
     def on_enter(self):
         print('tasks screen has fully loaded')
+        self.refresh()
     t1 = staticmethod(t1)
     t2 = staticmethod(t2)
     t3 = staticmethod(t3)

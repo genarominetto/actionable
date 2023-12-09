@@ -114,4 +114,7 @@
                     text: 'Start'
                     size_hint_y: None
                     height: 50
-                    on_press: root.start()
+                    on_press:
+                        root.start()  # Call the start function
+                        root.go_to_steps()  # Navigate to the steps screen
+
