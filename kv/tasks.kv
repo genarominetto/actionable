@@ -59,35 +59,35 @@
                     group: 'tasks'
                     size_hint_y: None
                     height: 50
-                    on_press: root.t1()
+                    on_state: root.update_start_button_state()
                 ToggleButton:
                     text: 't2'
                     id: t2
                     group: 'tasks'
                     size_hint_y: None
                     height: 50
-                    on_press: root.t2()
+                    on_state: root.update_start_button_state()
                 ToggleButton:
                     text: 't3'
                     id: t3
                     group: 'tasks'
                     size_hint_y: None
                     height: 50
-                    on_press: root.t3()
+                    on_state: root.update_start_button_state()
                 ToggleButton:
                     text: 't4'
                     id: t4
                     group: 'tasks'
                     size_hint_y: None
                     height: 50
-                    on_press: root.t4()
+                    on_state: root.update_start_button_state()
                 ToggleButton:
                     text: 't5'
                     id: t5
                     group: 'tasks'
                     size_hint_y: None
                     height: 50
-                    on_press: root.t5()
+                    on_state: root.update_start_button_state()
             GridLayout:
                 cols: 3
                 size_hint_y: None
@@ -113,9 +113,9 @@
                     on_press: root.refresh()
                 Button:
                     text: 'Start'
+                    id: start_button
+                    disabled: True
                     size_hint_y: None
                     height: 50
                     on_press:
-                        root.start()  # Call the start function
-                        root.go_to_steps()  # Navigate to the steps screen
-
+                        root.start()
