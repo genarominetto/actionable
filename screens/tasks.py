@@ -4,7 +4,6 @@ from utils.tasks.t2 import t2
 from utils.tasks.t3 import t3
 from utils.tasks.t4 import t4
 from utils.tasks.t5 import t5
-from utils.tasks.change_place import change_place
 from utils.tasks.select_zipf_tasks import select_zipf_tasks
 import sqlite3
 from datetime import datetime
@@ -19,13 +18,70 @@ class tasksScreen(Screen):
         self.manager.current = 'steps'
     def on_enter(self):
         print('tasks screen has fully loaded')
+        self.set_current_place()
         self.refresh()
+
+    def set_current_place(self):
+        conn = sqlite3.connect('tasks.db')
+        cursor = conn.cursor()
+
+        # Query for the currently selected place
+        cursor.execute("SELECT NAME FROM PLACES WHERE IS_SELECTED = 1")
+        selected_place_row = cursor.fetchone()
+
+        if selected_place_row:
+            # Update the Change Place button text
+            self.ids.change_place.text = selected_place_row[0]
+        else:
+            print("No selected place found.")
+
+        conn.close()
+
     t1 = staticmethod(t1)
     t2 = staticmethod(t2)
     t3 = staticmethod(t3)
     t4 = staticmethod(t4)
     t5 = staticmethod(t5)
-    change_place = staticmethod(change_place)
+
+    def change_place(self):
+        conn = sqlite3.connect('tasks.db')
+        cursor = conn.cursor()
+
+        # Find the current selected place
+        cursor.execute("SELECT ID, NAME FROM PLACES WHERE IS_SELECTED = 1")
+        current_place = cursor.fetchone()
+
+        if current_place:
+            current_place_id, current_place_name = current_place
+
+            # Set the current place's IS_SELECTED to 0
+            cursor.execute("UPDATE PLACES SET IS_SELECTED = 0 WHERE ID = ?", (current_place_id,))
+
+            # Find the next place or loop back to the first
+            cursor.execute("SELECT ID, NAME FROM PLACES WHERE ID > ? ORDER BY ID ASC LIMIT 1", (current_place_id,))
+            next_place = cursor.fetchone()
+
+            if not next_place:
+                # If no next place, select the first place
+                cursor.execute("SELECT ID, NAME FROM PLACES ORDER BY ID ASC LIMIT 1")
+                next_place = cursor.fetchone()
+
+            next_place_id, next_place_name = next_place
+
+            # Set the next place's IS_SELECTED to 1
+            cursor.execute("UPDATE PLACES SET IS_SELECTED = 1 WHERE ID = ?", (next_place_id,))
+
+            # Update the button text to the new place
+            self.ids.change_place.text = next_place_name
+
+            conn.commit()
+        else:
+            print("No selected place found.")
+
+        conn.close()
+
+        # Refresh tasks
+        self.refresh()
 
     def refresh(self):
         # Untoggle any currently toggled buttons
