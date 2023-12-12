@@ -13,17 +13,29 @@
             height: self.minimum_height
             padding: 30
             spacing: 30
-            Label:
-                text: 'Steps'
-                color: (0, 0, 0)
-                canvas.before:
-                    Color:
-                        rgb: 0.9, 0.9, 0.9
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
+
+            BoxLayout:
+                orientation: 'vertical'
                 size_hint_y: None
-                height: 100
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+
+                Label:
+                    id: task_text_label
+                    text: 'Task Text Placeholder'
+                    color: (0, 0, 0)
+
+                Label:
+                    id: steps_completed_label
+                    text: 'Steps Completed Placeholder'
+                    color: (0, 0, 0)
+
+                Label:
+                    id: countdown_timer_label
+                    text: 'Countdown Timer Placeholder'
+                    color: (0, 0, 0)
+
             GridLayout:
                 cols: 2
                 size_hint_y: None
