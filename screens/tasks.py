@@ -51,13 +51,13 @@ class tasksScreen(Screen):
                 break
 
         if selected_task_id is not None:
-            self.add_to_history(selected_task_id)
+            self.add_to_history(selected_task_id, selected_task_text)
             self.update_current_task_in_db(selected_task_text)
             self.go_to_steps()
         else:
             print("No task selected")
 
-    def add_to_history(self, task_id):
+    def add_to_history(self, task_id, task_text):
         action = "Started"
         time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
@@ -68,8 +68,9 @@ class tasksScreen(Screen):
 
             if step_row:
                 step_id = step_row[0]
-                cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME) VALUES (?, ?, ?)''', 
-                               (step_id, action, time))
+                cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME, TASK_TEXT) VALUES (?, ?, ?, ?)''', 
+                            (step_id, action, time, task_text))
+
 
     def update_current_task_in_db(self, task_text):
         with sqlite3.connect('tasks.db') as conn:
