@@ -1,2 +1,0 @@
-def cancel():
-	print("Cancel")

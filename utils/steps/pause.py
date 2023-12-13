@@ -1,2 +1,0 @@
-def pause():
-	print("Pause")
