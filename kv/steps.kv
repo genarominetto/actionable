@@ -14,22 +14,64 @@
             padding: 30
             spacing: 30
 
+            # Spacer widget
+            Widget:
+                size_hint_y: None
+                height: 30
+
             BoxLayout:
                 orientation: 'vertical'
                 size_hint_y: None
-                height: self.minimum_height
+                height: 100
                 padding: 10
-                spacing: 10
+                spacing: 100
+                canvas.before:
+                    Color:
+                        rgb: 0.9, 0.9, 0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
                 Label:
                     id: task_text_label
                     text: 'Task Text Placeholder'
-                    color: (0, 0, 0)
+                    color: (0, 0, 0, 1)
+                    text_size: self.width, None
+                    halign: 'center'
+                    valign: 'middle'
+                    padding: 10, 10
+
+            # Spacer widget
+            Widget:
+                size_hint_y: None
+                height: 30
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 100
+                padding: 10
+                spacing: 100
+                canvas.before:
+                    Color:
+                        rgb: 0.9, 0.9, 0.9
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
                 Label:
                     id: steps_completed_label
                     text: 'Steps Completed Placeholder'
-                    color: (0, 0, 0)
+                    color: (0, 0, 0, 1)
+                    text_size: self.width, None
+                    halign: 'center'
+                    valign: 'middle'
+                    padding: 10, 10
+
+            # Spacer widget
+            Widget:
+                size_hint_y: None
+                height: 30
 
             GridLayout:
                 cols: 3
