@@ -99,7 +99,7 @@ class stepsScreen(Screen):
             self.current_step_id = next_step_id
             self.order_sequence = next_order_sequence
             self._update_step_name_and_placeholders()
-            self.change_state("Next Step")
+            self.change_state("Started")
 
         def _update_step_name_and_placeholders(self):
             with sqlite3.connect(self.db_path) as conn:

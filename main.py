@@ -1,9 +1,10 @@
 from kivy.config import Config
-Config.set('graphics', 'rotation', '0')  # This should be set to 0 for normal orientation
-    
+Config.set('graphics', 'rotation', '0')
+
 from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, NoTransition
+import sqlite3
 
 # Load KV files
 Builder.load_file('kv/tasks.kv')
@@ -14,17 +15,29 @@ from screens.steps import stepsScreen
 
 class MainApp(App):
 
+    def get_last_action(self):
+        db_path = "tasks.db"
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT ACTION FROM HISTORY ORDER BY ID DESC LIMIT 1")
+            result = cursor.fetchone()
+            return result[0] if result else None
+
     def build(self):
         sm = ScreenManager(transition=NoTransition())
         tasks_screen = tasksScreen(name='tasks')
-        sm.add_widget(tasks_screen)
         steps_screen = stepsScreen(name='steps')
+
+        sm.add_widget(tasks_screen)
         sm.add_widget(steps_screen)
-        sm.current = 'tasks'
+
+        last_action = self.get_last_action()
+        if last_action in ["Started", "Paused"]:
+            sm.current = 'steps'
+        else:
+            sm.current = 'tasks'
+
         return sm
 
 if __name__ == '__main__':
     MainApp().run()
-
-
-#
