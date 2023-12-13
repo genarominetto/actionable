@@ -7,8 +7,12 @@ class stepsScreen(Screen):
         def __init__(self, screen):
             self.screen = screen
             self.state = None
-            self.current_step_id, self.total_steps, self.step_name, self.order_sequence = self._get_step_info()
+            self.current_step_id, self.total_steps, self.step_name, self.order_sequence = (None, None, None, None)
             self.placeholders = self._get_placeholders()
+
+        def update_step_info(self):
+            self.current_step_id, self.total_steps, self.step_name, self.order_sequence = self._get_step_info()
+            self.update_ui()
 
         def _get_step_info(self):
             with sqlite3.connect("tasks.db") as conn:
@@ -89,7 +93,9 @@ class stepsScreen(Screen):
         self.step = self.Step(self)
 
     def on_enter(self):
+        # Update step information and UI when entering the screen
         print('Steps screen has fully loaded')
+        self.step.update_step_info()
 
     def go_to_tasks(self):
         print('Navigating from steps to tasks')
