@@ -32,23 +32,6 @@
                     color: (0, 0, 0)
 
             GridLayout:
-                cols: 2
-                size_hint_y: None
-                height: self.minimum_height
-                padding: 10
-                spacing: 10
-                canvas.before:
-                    Color:
-                        rgb: 0.5, 0.5, 0.5
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                Button:
-                    text: 'Tasks'
-                    size_hint_y: None
-                    height: 50
-                    on_press: root.go_to_tasks()
-            GridLayout:
                 cols: 3
                 size_hint_y: None
                 height: self.minimum_height
