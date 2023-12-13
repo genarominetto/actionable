@@ -32,7 +32,7 @@ class MainApp(App):
         sm.add_widget(steps_screen)
 
         last_action = self.get_last_action()
-        if last_action in ["Started", "Paused"]:
+        if last_action in ["Started"]:
             sm.current = 'steps'
         else:
             sm.current = 'tasks'

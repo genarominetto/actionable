@@ -64,22 +64,11 @@ class stepsScreen(Screen):
                 conn.commit()
 
         def update_ui(self):
-            # Fetch and update the task name
             task_name = self._get_current_task_name()
             self.screen.ids.task_text_label.text = task_name
-
-            # Update the step text
             if self.state in ["Finished", "Next Step"] or self.step_text is None:
                 self.step_text = f"({self.order_sequence}/{self.total_steps}) {self.replace_placeholders(self.step_name, self.placeholders)}"
             self.screen.ids.steps_completed_label.text = self.step_text
-
-            # Update button states based on current state
-            if self.state == "Paused":
-                self.screen.ids.pause_or_resume_button.text = "Resume"
-                self.screen.ids.next_step_button.disabled = True
-            elif self.state == "Started":
-                self.screen.ids.pause_or_resume_button.text = "Pause"
-                self.screen.ids.next_step_button.disabled = False
 
         def _get_current_task_name(self):
             with sqlite3.connect(self.db_path) as conn:
@@ -108,7 +97,6 @@ class stepsScreen(Screen):
                 self.step_name = cursor.fetchone()[0]
             self.step_text = f"({self.order_sequence}/{self.total_steps}) {self.replace_placeholders(self.step_name, self.placeholders)}"
 
-
     def __init__(self, **kwargs):
         super(stepsScreen, self).__init__(**kwargs)
         self.step = self.Step(self)
@@ -120,12 +108,6 @@ class stepsScreen(Screen):
     def go_to_tasks(self):
         print('Navigating from steps to tasks')
         self.manager.current = 'tasks'
-
-    def pause_or_resume(self):
-        if self.step.state == "Paused":
-            self.step.change_state("Started")
-        else:
-            self.step.change_state("Paused")
 
     def cancel(self):
         self.step.change_state("Canceled")
