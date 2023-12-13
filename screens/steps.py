@@ -64,10 +64,13 @@ class stepsScreen(Screen):
                 conn.commit()
 
         def update_ui(self):
-            # Update the step text only if it's the first time or the state has changed to "Finished" or "Next Step"
+            # Fetch and update the task name
+            task_name = self._get_current_task_name()
+            self.screen.ids.task_text_label.text = task_name
+
+            # Update the step text
             if self.state in ["Finished", "Next Step"] or self.step_text is None:
                 self.step_text = f"({self.order_sequence}/{self.total_steps}) {self.replace_placeholders(self.step_name, self.placeholders)}"
-
             self.screen.ids.steps_completed_label.text = self.step_text
 
             # Update button states based on current state
@@ -77,6 +80,13 @@ class stepsScreen(Screen):
             elif self.state == "Started":
                 self.screen.ids.pause_or_resume_button.text = "Pause"
                 self.screen.ids.next_step_button.disabled = False
+
+        def _get_current_task_name(self):
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT VALUE FROM VARIABLES WHERE ID = 1 AND KEY = 'current_task'")
+                task_name = cursor.fetchone()
+                return task_name[0] if task_name else "Task Not Found"
 
         def get_next_step(self):
             with sqlite3.connect(self.db_path) as conn:
