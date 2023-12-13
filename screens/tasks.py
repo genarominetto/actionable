@@ -68,8 +68,8 @@ class tasksScreen(Screen):
 
             if step_row:
                 step_id = step_row[0]
-                cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME, TASK_TEXT) VALUES (?, ?, ?, ?)''', 
-                            (step_id, action, time, task_text))
+                cursor.execute('''INSERT INTO HISTORY (STEP_ID, ACTION, TIME) VALUES (?, ?, ?)''', 
+                            (step_id, action, time))
 
 
     def update_current_task_in_db(self, task_text):
