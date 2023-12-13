@@ -31,11 +31,6 @@
                     text: 'Steps Completed Placeholder'
                     color: (0, 0, 0)
 
-                Label:
-                    id: countdown_timer_label
-                    text: 'Countdown Timer Placeholder'
-                    color: (0, 0, 0)
-
             GridLayout:
                 cols: 2
                 size_hint_y: None
@@ -67,16 +62,19 @@
                         size: self.size
                 Button:
                     text: 'Pause'
+                    id: pause_or_resume_button
                     size_hint_y: None
                     height: 50
-                    on_press: root.pause()
+                    on_press: root.pause_or_resume()
                 Button:
                     text: 'Cancel'
+                    id: cancel_button
                     size_hint_y: None
                     height: 50
                     on_press: root.cancel()
                 Button:
                     text: 'Next Step'
+                    id: next_step_button
                     size_hint_y: None
                     height: 50
                     on_press: root.next_step()
