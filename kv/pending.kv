@@ -58,18 +58,28 @@
                     Rectangle:
                         pos: self.pos
                         size: self.size
+                TextInput:
+                    id: new_task_input
+                    hint_text: 'New Task'
+                    size_hint_y: None
+                    height: 50
                 Button:
                     text: 'Create New Task'
                     size_hint_y: None
-                    height: 250
+                    height: 50
+                    disabled: not new_task_input.text
                     on_press: root.create_new_task()
+                Label:
+                    text: 'Your Completion Label Text Here'
+                    size_hint_y: None
+                    height: 50
                 Button:
                     text: 'Mark as Completed'
                     size_hint_y: None
-                    height: 250
+                    height: 50
                     on_press: root.mark_as_completed()
                 Button:
                     text: 'Next'
                     size_hint_y: None
-                    height: 250
+                    height: 50
                     on_press: root.next()
