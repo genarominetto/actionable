@@ -1,0 +1,75 @@
+<PendingScreen>:
+    ScrollView:
+        canvas.before:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        do_scroll_x: False
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 30
+            spacing: 30
+            Label:
+                text: 'Pending'
+                color: (1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint_y: None
+                height: 250
+            GridLayout:
+                cols: 4
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.5, 0.5, 0.5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    text: 'Tasks'
+                    size_hint_y: None
+                    height: 250
+                    on_press: root.go_to_tasks()
+                Button:
+                    text: 'Pending'
+                    size_hint_y: None
+                    height: 250
+                    disabled: True
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    text: 'Create New Task'
+                    size_hint_y: None
+                    height: 250
+                    on_press: root.create_new_task()
+                Button:
+                    text: 'Mark as Completed'
+                    size_hint_y: None
+                    height: 250
+                    on_press: root.mark_as_completed()
+                Button:
+                    text: 'Next'
+                    size_hint_y: None
+                    height: 250
+                    on_press: root.next()

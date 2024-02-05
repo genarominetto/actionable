@@ -99,3 +99,7 @@ class tasksScreen(Screen):
     def go_to_steps(self):
         print('Navigating from tasks to steps')
         self.manager.current = 'steps'
+
+    def go_to_pending(self):
+        print('Navigating from tasks to pending')
+        self.manager.current = 'pending'
