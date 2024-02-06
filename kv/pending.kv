@@ -70,7 +70,8 @@
                     disabled: not new_task_input.text
                     on_press: root.create_new_task()
                 Label:
-                    text: 'Your Completion Label Text Here'
+                    id: task_label  # Ensure this id matches the one used in the refresh method
+                    text: ''
                     size_hint_y: None
                     height: 50
                 Button:
@@ -78,8 +79,12 @@
                     size_hint_y: None
                     height: 50
                     on_press: root.mark_as_completed()
+                    disabled: True  # Initially disabled, will be enabled by the refresh method
+                    id: mark_as_completed
                 Button:
                     text: 'Next'
                     size_hint_y: None
                     height: 50
                     on_press: root.next()
+                    disabled: True  # Initially disabled, will be enabled by the refresh method
+                    id: next
