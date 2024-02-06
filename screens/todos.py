@@ -5,15 +5,18 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 import sqlite3
 
-class pendingScreen(Screen):
+class todosScreen(Screen):
     db_path = "tasks.db"  # Database path as an instance variable
 
     def __init__(self, **kwargs):
-        super(pendingScreen, self).__init__(**kwargs)
+        super(todosScreen, self).__init__(**kwargs)
 
     def go_to_tasks(self):
         self.manager.current = 'tasks'
-
+    
+    def go_to_habits(self):
+        self.manager.current = 'habits'
+    
     def on_enter(self):
         self.refresh()
 

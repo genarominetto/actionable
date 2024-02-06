@@ -9,11 +9,13 @@ import sqlite3
 # Load KV files
 Builder.load_file('kv/tasks.kv')
 Builder.load_file('kv/steps.kv')
-Builder.load_file('kv/pending.kv')
+Builder.load_file('kv/todos.kv')
+Builder.load_file('kv/habits.kv')
 
 from screens.tasks import tasksScreen
 from screens.steps import stepsScreen
-from screens.pending import pendingScreen
+from screens.todos import todosScreen
+from screens.habits import habitsScreen
 
 class MainApp(App):
 
@@ -29,11 +31,13 @@ class MainApp(App):
         sm = ScreenManager(transition=NoTransition())
         tasks_screen = tasksScreen(name='tasks')
         steps_screen = stepsScreen(name='steps')
-        pending_screen = pendingScreen(name='pending')
+        todos_screen = todosScreen(name='todos')
+        habits_screen = habitsScreen(name='habits')
 
         sm.add_widget(tasks_screen)
         sm.add_widget(steps_screen)
-        sm.add_widget(pending_screen)
+        sm.add_widget(todos_screen)
+        sm.add_widget(habits_screen)
 
         last_action = self.get_last_action()
         if last_action in ["Started"]:
@@ -42,9 +46,6 @@ class MainApp(App):
             sm.current = 'tasks'
 
         return sm
-
-
-
 
 if __name__ == '__main__':
     MainApp().run()

@@ -39,13 +39,18 @@
                 Button:
                     text: 'Tasks'
                     size_hint_y: None
-                    height: 250
+                    height: 50
                     disabled: True
                 Button:
-                    text: 'Pending'
+                    text: 'Todos'
                     size_hint_y: None
-                    height: 250
-                    on_press: root.go_to_pending()
+                    height: 50
+                    on_press: root.go_to_todos()
+                Button:
+                    text: 'Habits'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.go_to_habits()
             GridLayout:
                 cols: 1
                 size_hint_y: None

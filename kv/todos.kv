@@ -1,0 +1,95 @@
+<TodosScreen>:
+    ScrollView:
+        canvas.before:
+            Color:
+                rgb: 0, 0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        do_scroll_x: False
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 30
+            spacing: 30
+            Label:
+                text: 'Todos'
+                color: (1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint_y: None
+                height: 250
+            GridLayout:
+                cols: 4
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.5, 0.5, 0.5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    text: 'Tasks'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.go_to_tasks()
+                Button:
+                    text: 'Todos'
+                    size_hint_y: None
+                    height: 50
+                    disabled: True
+                Button:
+                    text: 'Habits'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.go_to_habits()
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgb: 0.1, 0.1, 0.1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                TextInput:
+                    id: new_task_input
+                    hint_text: 'New Task'
+                    size_hint_y: None
+                    height: 50
+                Button:
+                    text: 'Create New Task'
+                    size_hint_y: None
+                    height: 50
+                    disabled: not new_task_input.text
+                    on_press: root.create_new_task()
+                Label:
+                    id: task_label  # Ensure this id matches the one used in the refresh method
+                    text: ''
+                    size_hint_y: None
+                    height: 50
+                Button:
+                    text: 'Mark as Completed'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.mark_as_completed()
+                    disabled: True  # Initially disabled, will be enabled by the refresh method
+                    id: mark_as_completed
+                Button:
+                    text: 'Next'
+                    size_hint_y: None
+                    height: 50
+                    on_press: root.next()
+                    disabled: True  # Initially disabled, will be enabled by the refresh method
+                    id: next
