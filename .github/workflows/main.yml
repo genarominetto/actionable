@@ -25,8 +25,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget libbz2-dev openjdk-8-jdk
 
-      - name: Install JDK 17
+      - name: Set JAVA_HOME to Java 17
         run: |
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
           sudo apt-get update
           sudo apt-get install -y openjdk-17-jdk
           sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
