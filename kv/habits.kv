@@ -73,6 +73,7 @@
                     text: 'Create New Habit'
                     size_hint_y: None
                     height: 50
+                    disabled: new_habit.text == ''
                     on_press: root.create_new_habit()
 
                 Label:
