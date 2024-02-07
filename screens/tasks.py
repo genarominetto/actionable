@@ -92,13 +92,10 @@ class tasksScreen(Screen):
         self.refresh()
 
     def go_to_steps(self):
-        print('Navigating from tasks to steps')
         self.manager.current = 'steps'
 
     def go_to_todos(self):
-        print('Navigating from tasks to todos')
         self.manager.current = 'todos'
 
     def go_to_habits(self):
-        print('Navigating from tasks to habits')
         self.manager.current = 'habits'

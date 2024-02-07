@@ -39,17 +39,17 @@
                 Button:
                     text: 'Tasks'
                     size_hint_y: None
-                    height: 50
+                    height: 250
                     on_press: root.go_to_tasks()
                 Button:
-                    text: 'Todos'
+                    text: 'To-Do'
                     size_hint_y: None
-                    height: 50
+                    height: 250
                     on_press: root.go_to_todos()
                 Button:
                     text: 'Habits'
                     size_hint_y: None
-                    height: 50
+                    height: 250
                     disabled: True
             GridLayout:
                 cols: 1
@@ -67,12 +67,12 @@
                     id: new_habit
                     hint_text: 'Enter new habit'
                     size_hint_y: None
-                    height: 50
+                    height: 200
 
                 Button:
                     text: 'Create New Habit'
                     size_hint_y: None
-                    height: 50
+                    height: 250
                     disabled: new_habit.text == ''
                     on_press: root.create_new_habit()
 
@@ -80,17 +80,17 @@
                     id: current_habit_label
                     text: 'Current Habit: '
                     size_hint_y: None
-                    height: 50
+                    height: 300
 
                 Label:
                     id: question_label
                     text: 'Do you want to break or keep your current habit?'
                     size_hint_y: None
-                    height: 50
+                    height: 300
 
                 BoxLayout:
                     size_hint_y: None
-                    height: 50
+                    height: 250
                     orientation: 'horizontal'
 
                     Button:
