@@ -63,18 +63,39 @@
                     Rectangle:
                         pos: self.pos
                         size: self.size
+                TextInput:
+                    id: new_habit
+                    hint_text: 'Enter new habit'
+                    size_hint_y: None
+                    height: 50
+
                 Button:
                     text: 'Create New Habit'
                     size_hint_y: None
                     height: 50
                     on_press: root.create_new_habit()
-                Button:
-                    text: 'Break'
+
+                Label:
+                    text: 'Current Habit: '
                     size_hint_y: None
                     height: 50
-                    on_press: root.break_habit()
-                Button:
-                    text: 'Keep'
+
+                Label:
+                    text: 'Do you want to keep or break your current habit?'
                     size_hint_y: None
                     height: 50
-                    on_press: root.keep()
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 50
+                    orientation: 'horizontal'
+
+                    Button:
+                        text: 'Break'
+                        size_hint_x: 0.5
+                        on_press: root.break_habit()
+
+                    Button:
+                        text: 'Keep'
+                        size_hint_x: 0.5
+                        on_press: root.keep()
