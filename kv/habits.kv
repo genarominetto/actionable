@@ -77,12 +77,14 @@
                     on_press: root.create_new_habit()
 
                 Label:
+                    id: current_habit_label
                     text: 'Current Habit: '
                     size_hint_y: None
                     height: 50
 
                 Label:
-                    text: 'Do you want to keep or break your current habit?'
+                    id: question_label
+                    text: 'Do you want to break or keep your current habit?'
                     size_hint_y: None
                     height: 50
 
@@ -92,11 +94,13 @@
                     orientation: 'horizontal'
 
                     Button:
+                        id: break_button
                         text: 'Break'
                         size_hint_x: 0.5
                         on_press: root.break_habit()
 
                     Button:
+                        id: keep_button
                         text: 'Keep'
                         size_hint_x: 0.5
                         on_press: root.keep()
