@@ -43,7 +43,7 @@ class todosScreen(Screen):
         content.add_widget(btn_layout)
 
         # Create the popup
-        popup = Popup(title='Confirm', content=content, size_hint=(None, None), size=(400, 400), auto_dismiss=False)
+        popup = Popup(title='Confirm', content=content, size_hint=(None, None), size=(500, 600), auto_dismiss=False)
 
         # Bind the on_press event to the Yes and No buttons
         yes_btn.bind(on_press=lambda instance: self.delete_task(popup))
