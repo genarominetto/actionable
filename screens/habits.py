@@ -116,14 +116,10 @@ class habitsScreen(Screen):
 
 
     def go_to_tasks(self):
-        print('Navigating from habits to tasks')
         self.manager.current = 'tasks'
     def go_to_todos(self):
-        print('Navigating from habits to todos')
         self.manager.current = 'todos'
     def go_to_habits(self):
-        print('Navigating from habits to habits')
         self.manager.current = 'habits'
     def on_enter(self):
-        print('habits screen has fully loaded')
         self.refresh()
