@@ -46,6 +46,19 @@ class habitsScreen(Screen):
         
         conn.close()
 
+    def create_new_habit(self):
+        name = self.ids.new_habit.text
+        today = datetime.now().date().isoformat()
+        
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+        cur.execute("INSERT INTO HABITS (NAME, STARTED_DATE, LAST_KEEP_DATE) VALUES (?, ?, ?)", (name, today, today))
+        conn.commit()
+        conn.close()
+        
+        self.ids.new_habit.text = ""  # Clear the TextInput
+        self.refresh()  # Refresh to update UI
+
     def break_habit(self):
         # Create the content layout for the popup
         content = BoxLayout(orientation='vertical', spacing=10)
