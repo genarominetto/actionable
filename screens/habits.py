@@ -66,7 +66,7 @@ class habitsScreen(Screen):
         button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=50)
         
         # Initialize the popup without specifying content yet
-        popup = Popup(title='Confirm Break Habit', size_hint=(None, None), size=(500, 600), auto_dismiss=False)
+        popup = Popup(title='Confirm Break Habit', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
         
         # Define the Yes and No buttons
         yes_button = Button(text='Yes')
