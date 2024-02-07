@@ -9,7 +9,6 @@ class tasksScreen(Screen):
         self.task_id_mapping = {}
 
     def on_enter(self):
-        print('Tasks screen has fully loaded')
         self.set_current_place()
         self.refresh()
 
@@ -18,11 +17,7 @@ class tasksScreen(Screen):
             cursor = conn.cursor()
             cursor.execute("SELECT NAME FROM PLACES WHERE IS_SELECTED = 1")
             selected_place_row = cursor.fetchone()
-
-            if selected_place_row:
-                self.ids.change_place.text = selected_place_row[0]
-            else:
-                print("No selected place found.")
+            self.ids.change_place.text = selected_place_row[0]
 
     def refresh(self):
         with sqlite3.connect('tasks.db') as conn:
