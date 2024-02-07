@@ -102,11 +102,9 @@ class stepsScreen(Screen):
         self.step = self.Step(self)
 
     def on_enter(self):
-        print('Steps screen has fully loaded')
         self.step.update_step_info()
 
     def go_to_tasks(self):
-        print('Navigating from steps to tasks')
         self.manager.current = 'tasks'
 
     def cancel(self):
