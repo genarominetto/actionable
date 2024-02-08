@@ -32,31 +32,52 @@ class todosScreen(Screen):
             self.refresh()  # Refresh the UI to reflect the new task
     
     def mark_as_completed(self):
-        # Initialize the popup without specifying content yet
-        popup = Popup(title='Confirm', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
-    
+        # Connect to the database to fetch the task name
+        conn = sqlite3.connect(self.db_path)
+        cur = conn.cursor()
+        cur.execute("SELECT VALUE FROM VARIABLES WHERE KEY = 'todo_pointer'")
+        todo_pointer = int(cur.fetchone()[0])
+        cur.execute("SELECT NAME FROM TODOS WHERE ID = ?", (todo_pointer,))
+        task_name = cur.fetchone()[0]  # Fetch the task name
+        conn.close()
+
+        # Initialize the popup, now including the task name in the title or message
+        popup_title = 'Confirm Task Completion'
+        popup_message = f'Are you sure you want to mark the task "{task_name}" as completed?'
+
+        popup = Popup(title=popup_title, size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
+
         # Create the content layout for the popup
         content = BoxLayout(orientation='vertical', spacing=10)
-        message = Label(text='Are you sure you want to mark the task as completed?')
-        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)  # Adjusted height for buttons
-        
-        # Define the Yes and No buttons with adjusted height
+        message = Label(
+            text=popup_message,
+            size_hint_y=None,
+            height=250,  # Adjust as needed, or use 'None' to not specify
+            text_size=(self.width, None),  # Adapt text size to the width of the Label widget
+            halign='center',
+            valign='middle'
+        )
+        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)
+
+        # Define the Yes and No buttons
         yes_btn = Button(text='Yes', size_hint_y=None, height=250)
         no_btn = Button(text='No', size_hint_y=None, height=250)
-        
+
         # Bind the on_press events
         yes_btn.bind(on_press=lambda instance: self.delete_task(popup))
         no_btn.bind(on_press=lambda instance: popup.dismiss())
-        
+
         # Add widgets to the layout
         content.add_widget(message)
         button_box.add_widget(yes_btn)
         button_box.add_widget(no_btn)
         content.add_widget(button_box)
-        
+
         # Set the popup's content and open it
         popup.content = content
         popup.open()
+
+
 
     def delete_task(self, popup):
         # Insert the deletion logic here

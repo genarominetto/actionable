@@ -58,30 +58,48 @@ class habitsScreen(Screen):
         
         self.ids.new_habit.text = ""  # Clear the TextInput
         self.refresh()  # Refresh to update UI
-        
+            
     def break_habit(self):
-        # Initialize the popup without specifying content yet
+        # First, get the name of the habit to break
+        if self.current_habit_id is not None:
+            conn = sqlite3.connect(self.db_path)
+            cur = conn.cursor()
+            cur.execute("SELECT NAME FROM HABITS WHERE ID = ?", (self.current_habit_id,))
+            habit_name = cur.fetchone()[0]  # Fetch the habit name
+            conn.close()
+            confirm_message = f'Are you sure you want to break the habit "{habit_name}"?'
+        else:
+            confirm_message = 'No current habit to break.'
+
+        # Initialize the popup with the habit name in the message
         popup = Popup(title='Confirm Break Habit', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
-    
+
         # Create the content layout for the popup
         content = BoxLayout(orientation='vertical', spacing=10)
-        message = Label(text='Are you sure you want to break this habit?')
-        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)  # Adjusted height for buttons
-        
+        message = Label(
+            text=confirm_message,
+            size_hint_y=None,
+            height=250,  # Specify height or use 'None' to auto-adjust
+            text_size=(self.width, None),  # Adapt text size to the width of the Label widget
+            halign='center',
+            valign='middle'
+        )
+        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)
+
         # Define the Yes and No buttons with adjusted height
         yes_button = Button(text='Yes', size_hint_y=None, height=250)
         no_button = Button(text='No', size_hint_y=None, height=250)
-        
+
         # Bind the on_press events
         yes_button.bind(on_press=lambda instance: self.confirm_break_habit(popup))
         no_button.bind(on_press=lambda instance: popup.dismiss())
-        
+
         # Add widgets to the layout
         content.add_widget(message)
         button_box.add_widget(yes_button)
         button_box.add_widget(no_button)
         content.add_widget(button_box)
-        
+
         # Set the popup's content and open it
         popup.content = content
         popup.open()
