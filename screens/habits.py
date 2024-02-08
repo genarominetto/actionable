@@ -58,19 +58,19 @@ class habitsScreen(Screen):
         
         self.ids.new_habit.text = ""  # Clear the TextInput
         self.refresh()  # Refresh to update UI
-
+        
     def break_habit(self):
+        # Initialize the popup without specifying content yet
+        popup = Popup(title='Confirm Break Habit', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
+    
         # Create the content layout for the popup
         content = BoxLayout(orientation='vertical', spacing=10)
         message = Label(text='Are you sure you want to break this habit?')
-        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=50)
+        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)  # Adjusted height for buttons
         
-        # Initialize the popup without specifying content yet
-        popup = Popup(title='Confirm Break Habit', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
-        
-        # Define the Yes and No buttons
-        yes_button = Button(text='Yes')
-        no_button = Button(text='No')
+        # Define the Yes and No buttons with adjusted height
+        yes_button = Button(text='Yes', size_hint_y=None, height=250)
+        no_button = Button(text='No', size_hint_y=None, height=250)
         
         # Bind the on_press events
         yes_button.bind(on_press=lambda instance: self.confirm_break_habit(popup))
@@ -86,6 +86,7 @@ class habitsScreen(Screen):
         popup.content = content
         popup.open()
 
+
     def confirm_break_habit(self, popup, *args):
         # Delete the current habit
         conn = sqlite3.connect(self.db_path)
@@ -98,8 +99,6 @@ class habitsScreen(Screen):
         # Refresh the UI and dismiss the popup
         self.refresh()
         popup.dismiss()
-
-
 
     def keep(self):
         today = datetime.now().date().isoformat()
