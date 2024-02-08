@@ -30,25 +30,32 @@ class todosScreen(Screen):
             conn.close()
             self.ids.new_task_input.text = ''  # Clear the input field
             self.refresh()  # Refresh the UI to reflect the new task
-
+    
     def mark_as_completed(self):
-        # Create the content for the popup
-        content = BoxLayout(orientation='vertical', spacing=5, size_hint_y=None)
-        btn_layout = BoxLayout(size_hint_y=None, height=50)
-        yes_btn = Button(text='Yes', size_hint=(0.5, 1))
-        no_btn = Button(text='No', size_hint=(0.5, 1))
-        content.add_widget(Label(text='Are you sure you want to mark the task as completed?'))
-        btn_layout.add_widget(yes_btn)
-        btn_layout.add_widget(no_btn)
-        content.add_widget(btn_layout)
-
-        # Create the popup
-        popup = Popup(title='Confirm', content=content, size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
-
-        # Bind the on_press event to the Yes and No buttons
+        # Initialize the popup without specifying content yet
+        popup = Popup(title='Confirm', size_hint=(None, None), size=(900, 1000), auto_dismiss=False)
+    
+        # Create the content layout for the popup
+        content = BoxLayout(orientation='vertical', spacing=10)
+        message = Label(text='Are you sure you want to mark the task as completed?')
+        button_box = BoxLayout(orientation='horizontal', size_hint_y=None, height=250)  # Adjusted height for buttons
+        
+        # Define the Yes and No buttons with adjusted height
+        yes_btn = Button(text='Yes', size_hint_y=None, height=250)
+        no_btn = Button(text='No', size_hint_y=None, height=250)
+        
+        # Bind the on_press events
         yes_btn.bind(on_press=lambda instance: self.delete_task(popup))
         no_btn.bind(on_press=lambda instance: popup.dismiss())
-
+        
+        # Add widgets to the layout
+        content.add_widget(message)
+        button_box.add_widget(yes_btn)
+        button_box.add_widget(no_btn)
+        content.add_widget(button_box)
+        
+        # Set the popup's content and open it
+        popup.content = content
         popup.open()
 
     def delete_task(self, popup):
